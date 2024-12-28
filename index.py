@@ -60,9 +60,14 @@ def scrape_months():
             # current_event_title = current_event.locator('p.name')
             for event_index in range(current_events_lenght):
                 current_event = current_events.nth(event_index)
-                current_event_title = current_event.locator('p.name')
-                print(current_event_title.text_content())
-        
+                # THIS WORKS
+                current_event_title = current_event.locator('p.name').text_content() 
+                # THIS WORKS
+                current_event_date = current_event.locator('p.dates').text_content()
+                current_event_location = current_event.locator('p.location').text_content()
+                current_event_description = current_event.locator('p.description').text_content()
+                current_event_link = current_event.locator('a.button').get_attribute('href')
+                print(current_event_link)
 
     
 
