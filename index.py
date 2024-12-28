@@ -78,24 +78,6 @@ def scrape_months():
             # print(event_dictonary)
             event_glossory.append(event_dictonary.copy())
         print(event_glossory)
-
-            # events_children_length = events.count()
-            # for a in range(events_children_legnth):
-            #     current_event_title = events_children(a)
-        # check if the current year matches and month
-        # if current year adn month matches then we continue
-        # if str(current_year + ) in article_header:
-        #     print("Year Matches")
-        #     # get access to element by class and then get children
-        #     eventsParentElement = page.locator('')
-        #     return 
-        # return print("Did not match")
-        # Extract and print the page title
-        # title = page.title()
-
-        # print(f"Page title: {title}")
-
-        # Close the browser
         browser.close()
 
 
