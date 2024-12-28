@@ -67,17 +67,17 @@ def scrape_months():
                 current_event_location =  ( current_event.locator('p.location').text_content() if current_event.locator('p.location').count() > 0 else "N/A" )
                 current_event_description = current_event.locator('p.description').text_content()
                 current_event_link = (current_event.locator('a.button').get_attribute('href') if current_event.locator('a.button').count() > 0 else "N/A")
-        event_dictonary = {
-            "title":month_title.strip(),
-            "event_title":current_event_title.strip(),
-            "date":current_event_date.strip(),
-            "location":current_event_location.strip(),
-            "description":current_event_description.strip(),
-            "link":current_event_link.strip(),
-        }
-        print(event_dictonary)
-        # event_glossory.append
-
+            event_dictonary = {
+                "title":month_title.strip(),
+                "event_title":current_event_title.strip(),
+                "date":current_event_date.strip(),
+                "location":current_event_location.strip(),
+                "description":current_event_description.strip(),
+                "link":current_event_link.strip(),
+            }
+            # print(event_dictonary)
+            event_glossory.append(event_dictonary.copy())
+        print(event_glossory)
 
             # events_children_length = events.count()
             # for a in range(events_children_legnth):
