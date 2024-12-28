@@ -47,13 +47,29 @@ def scrape_months():
         # have to target month classes and get all children with class
         event_elements = page.locator('div.month')
         # print(event_elements)
-        print(event_elements)
         length_of_element = event_elements.count()
         for index in range(length_of_element):
             current_element = event_elements.nth(index)
-            current_title = current_element.locator("div.section_title")
-            print(current_title.inner_html())
+            # THIS WORKS
+            month_title = current_element.locator("div.section_title")
+            # print(month_title.inner_html())
+            parent_events = current_element.locator('.events')
+            # THIS WORKS BUT ITS NOT PERFECT
+            current_events = parent_events.locator('.event.summary')
+            current_events_lenght = current_events.count()   
+            # current_event_title = current_event.locator('p.name')
+            for event_index in range(current_events_lenght):
+                current_event = current_events.nth(event_index)
+                current_event_title = current_event.locator('p.name')
+                print(current_event_title.text_content())
         
+
+    
+
+
+            # events_children_length = events.count()
+            # for a in range(events_children_legnth):
+            #     current_event_title = events_children(a)
         # check if the current year matches and month
         # if current year adn month matches then we continue
         # if str(current_year + ) in article_header:
