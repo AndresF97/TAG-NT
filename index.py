@@ -51,7 +51,7 @@ def scrape_months():
         for index in range(length_of_element):
             current_element = event_elements.nth(index)
             # THIS WORKS
-            month_title = current_element.locator("div.section_title")
+            month_title = current_element.locator("div.section_title").text_content()
             # print(month_title.inner_html())
             parent_events = current_element.locator('.events')
             # THIS WORKS BUT ITS NOT PERFECT
@@ -64,12 +64,19 @@ def scrape_months():
                 current_event_title = current_event.locator('p.name').text_content() 
                 # THIS WORKS
                 current_event_date = current_event.locator('p.dates').text_content()
-                current_event_location = current_event.locator('p.location').text_content()
+                current_event_location =  ( current_event.locator('p.location').text_content() if current_event.locator('p.location').count() > 0 else "N/A" )
                 current_event_description = current_event.locator('p.description').text_content()
-                current_event_link = current_event.locator('a.button').get_attribute('href')
-                print(current_event_link)
-
-    
+                current_event_link = (current_event.locator('a.button').get_attribute('href') if current_event.locator('a.button').count() > 0 else "N/A")
+        event_dictonary = {
+            "title":month_title.strip(),
+            "event_title":current_event_title.strip(),
+            "date":current_event_date.strip(),
+            "location":current_event_location.strip(),
+            "description":current_event_description.strip(),
+            "link":current_event_link.strip(),
+        }
+        print(event_dictonary)
+        # event_glossory.append
 
 
             # events_children_length = events.count()
