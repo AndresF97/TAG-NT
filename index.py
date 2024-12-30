@@ -63,6 +63,7 @@ def scrape_months():
                 # THIS WORKS
                 current_event_title = current_event.locator('p.name').text_content() 
                 # THIS WORKS
+                current_event_banner = (current_event.locator('div.image img').get_attribute('src') if current_event.locator('div.image').count() > 0 else 'No Image' )
                 current_event_date = current_event.locator('p.dates').text_content()
                 current_event_location =  ( current_event.locator('p.location').text_content() if current_event.locator('p.location').count() > 0 else "N/A" )
                 current_event_description = current_event.locator('p.description').text_content()
@@ -74,6 +75,7 @@ def scrape_months():
                 "location":current_event_location.strip(),
                 "description":current_event_description.strip(),
                 "link":current_event_link.strip(),
+                "image":current_event_banner.strip()
             }
             # print(event_dictonary)
             event_glossory.append(event_dictonary.copy())
