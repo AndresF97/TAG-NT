@@ -77,7 +77,6 @@ def scrape_months():
             }
             # print(event_dictonary)
             event_glossory.append(event_dictonary.copy())
-        print(event_glossory)
         browser.close()
         return event_glossory
 
@@ -85,4 +84,5 @@ def scrape_months():
 if __name__ == "__main__":
     # scrape_title()
     events = scrape_months()
+    print(events)
     
