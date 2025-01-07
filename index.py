@@ -59,8 +59,9 @@ def scrape_months():
         context = browser.new_context()
         page = context.new_page()
         event_glossory = []
+        current_year = datetime.now().year
         # Navigate to the website
-        page.goto("https://www.gamesindustry.biz/events?year=2025")
+        page.goto(f"https://www.gamesindustry.biz/events?year={current_year}")
         # have to target month classes and get all children with class
         event_elements = page.locator('div.month')
         # print(event_elements)
@@ -79,9 +80,6 @@ def scrape_months():
                 current_event = current_events.nth(event_index)
                 # THIS WORKS
                 current_event_title = current_event.locator('p.name').text_content() 
-                # random_index = random.randint(0, len(random_images) - 1)
-                print(len(random_images))
-                # selected_random_image = random_images.pop(random_index)
                 if current_event.locator('div.image').count() > 0:
                     random_index = random.randint(0, len(random_images) - 1)
                     selected_random_image = random_images.pop(random_index)
