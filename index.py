@@ -1,7 +1,8 @@
 from datetime import datetime
 from playwright.sync_api import sync_playwright
 import random
-
+import json
+import os
 # /////////////------THIS ALLOWS US TO GET BY THE CURRENT ITS ONLY HALF FINISH ---------//////
 # def scrape_by_month():
 #     with sync_playwright() as playwright:
@@ -102,10 +103,17 @@ def scrape_months():
             event_glossory.append(event_dictonary.copy())
         browser.close()
         return event_glossory
+def create_json(data): 
+     os.makedirs('dist', exist_ok=True)
+     file_path = os.path.join('dist', "data.json")
+     with open(file_path, 'w') as json_file:
+        json.dump(data, json_file, indent=4)
+        print("File was created")
 
 
 if __name__ == "__main__":
     # scrape_title()
     events = scrape_months()
     print(events)
+    create_json(events)
     
