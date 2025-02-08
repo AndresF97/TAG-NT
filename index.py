@@ -69,6 +69,7 @@ def scrape_months():
         # print(event_elements)
         length_of_element = event_elements.count()
         for index in range(length_of_element):
+            monthly_events = []
             current_element = event_elements.nth(index)
             # THIS WORKS
             month_title = current_element.locator("div.section_title").text_content()
@@ -81,24 +82,31 @@ def scrape_months():
             for event_index in range(current_events_lenght):
                 current_event = current_events.nth(event_index)
                 # THIS WORKS
-                current_event_title = current_event.locator('p.name').text_content() 
+                current_event_title = current_event.locator('p.name').text_content()
+                print(current_event_title) 
                 if current_event.locator('div.image').count() > 0:
                     random_index = random.randint(0, len(random_images) - 1)
                     selected_random_image = random_images.pop(random_index)
                     current_event_banner = (current_event.locator('div.image img').get_attribute('src') if current_event.locator('div.image').count() > 0 else selected_random_image)
                 # current_event_banner = (current_event.locator('div.image img').get_attribute('src') if current_event.locator('div.image').count() > 0 else  "selected_random_image")
                 current_event_date = current_event.locator('p.dates').text_content()
+                print(current_event_date)
                 current_event_location =  ( current_event.locator('p.location').text_content() if current_event.locator('p.location').count() > 0 else "N/A" )
                 current_event_description = current_event.locator('p.description').text_content()
                 current_event_link = (current_event.locator('a.button').get_attribute('href') if current_event.locator('a.button').count() > 0 else "N/A")
+                monthly_events.append(
+                    {
+                        "event_title":current_event_title.strip(),
+                        "date":current_event_date.strip(),
+                        "location":current_event_location.strip(),
+                        "description":current_event_description.strip(),
+                        "link":current_event_link.strip(),
+                        # "image":current_event_banner.strip()
+                    }
+                )
             event_dictonary = {
                 "title":month_title.strip(),
-                "event_title":current_event_title.strip(),
-                "date":current_event_date.strip(),
-                "location":current_event_location.strip(),
-                "description":current_event_description.strip(),
-                "link":current_event_link.strip(),
-                "image":current_event_banner.strip()
+                "events":monthly_events
             }
             # print(event_dictonary)
             event_glossory.append(event_dictonary.copy())
@@ -115,7 +123,7 @@ def create_json(data, filename):
 if __name__ == "__main__":
     # scrape_title()
     events = scrape_months()
-    print(events)
+    # print(events)
     create_json(events,"events")
     # AI OUTPUT
     
