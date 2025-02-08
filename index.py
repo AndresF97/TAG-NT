@@ -120,28 +120,38 @@ def create_json(data, filename):
      with open(file_path, 'w') as json_file:
         json.dump(data, json_file, indent=4)
         print("File was created")
+
+def read_json(filename):
+        with open(f'./dist/{filename}.json','r') as file:
+            return json.load(file)
+
+
 # TODO make sure i can pass mulitple values later that way I only use one OpenAI token instead of running multiple times;
-def give_summary():
-    # TODO: must feed API key to access AI
-    client = OpenAI()
-    completion = client.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {
-            "role": "user",
-            "content": "Write a haiku about recursion in programming."
-        }
-    ])
-    print(completion.choices[0].message)
+def give_summary(**kwargs):
+    events, mock = kwargs.values()
+    # NEW_KEY = os.getenv("NEW_KEY")
+    # client = OpenAI(
+    #     api_key = NEW_KEY
+    # )
+    # completion = client.chat.completions.create(
+    # model="omni-moderation-latest",
+    # messages=[
+    #     {"role": "system", "content": "You are a helpful assistant."},
+    #     {
+    #         "role": "user",
+    #         "content": "Write a haiku about recursion in programming."
+    #     }
+    # ])
+    # print(completion.choices[0].message)
 
 
 if __name__ == "__main__":
-    # scrape_title()
-    # events = scrape_months()
-    # print(events)
+    # TODO MUST SET UP SOME KIND OF FUNCTIONALITY TO CHECK IF FILE EXISTS 
+    # INTIAL RUN
+    # events = scrape_months()    
     # create_json(events,"events")
-    # AI OUTPUT
-    api_key = os.getenv("NEW_KEY")
-    print(api_key)
+    # RUNS IF FILE IS ALREADY CREATED
+    events = read_json('events')
+    mock = read_json('events')
+    give_summary(events = events, mock = mock)
     
