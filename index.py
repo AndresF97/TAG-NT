@@ -88,7 +88,7 @@ def scrape_months():
                     random_index = random.randint(0, len(random_images) - 1)
                     selected_random_image = random_images.pop(random_index)
                     current_event_banner = (current_event.locator('div.image img').get_attribute('src') if current_event.locator('div.image').count() > 0 else selected_random_image)
-                # current_event_banner = (current_event.locator('div.image img').get_attribute('src') if current_event.locator('div.image').count() > 0 else  "selected_random_image")
+                current_event_banner = (current_event.locator('div.image img').get_attribute('src') if current_event.locator('div.image').count() > 0 else  "selected_random_image")
                 current_event_date = current_event.locator('p.dates').text_content()
                 print(current_event_date)
                 current_event_location =  ( current_event.locator('p.location').text_content() if current_event.locator('p.location').count() > 0 else "N/A" )
@@ -101,7 +101,7 @@ def scrape_months():
                         "location":current_event_location.strip(),
                         "description":current_event_description.strip(),
                         "link":current_event_link.strip(),
-                        # "image":current_event_banner.strip()
+                        "image":current_event_banner.strip()
                     }
                 )
             event_dictonary = {
