@@ -1,1 +1,3 @@
 playwright
+openai
+load_dotenv
