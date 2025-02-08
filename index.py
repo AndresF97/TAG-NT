@@ -1,9 +1,11 @@
 from datetime import datetime
 from playwright.sync_api import sync_playwright
 from openai import OpenAI
+from dotenv import load_dotenv
 import random
 import json
 import os
+load_dotenv()
 
 # SCRAPES ALL DATA FROM GAME INDUSTRY EVENTS
 def scrape_months():
@@ -136,8 +138,10 @@ def give_summary():
 
 if __name__ == "__main__":
     # scrape_title()
-    events = scrape_months()
+    # events = scrape_months()
     # print(events)
-    create_json(events,"events")
+    # create_json(events,"events")
     # AI OUTPUT
+    api_key = os.getenv("NEW_KEY")
+    print(api_key)
     
