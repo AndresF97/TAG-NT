@@ -129,20 +129,20 @@ def read_json(filename):
 # TODO make sure i can pass mulitple values later that way I only use one OpenAI token instead of running multiple times;
 def give_summary(**kwargs):
     events, mock = kwargs.values()
-    # NEW_KEY = os.getenv("NEW_KEY")
-    # client = OpenAI(
-    #     api_key = NEW_KEY
-    # )
-    # completion = client.chat.completions.create(
-    # model="omni-moderation-latest",
-    # messages=[
-    #     {"role": "system", "content": "You are a helpful assistant."},
-    #     {
-    #         "role": "user",
-    #         "content": "Write a haiku about recursion in programming."
-    #     }
-    # ])
-    # print(completion.choices[0].message)
+    NEW_KEY = os.getenv("NEW_KEY")
+    client = OpenAI(
+        api_key = NEW_KEY
+    )
+    completion = client.chat.completions.create(
+    model="omni-moderation-latest",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {
+            "role": "user",
+            "content": f"give me a summary of these JSON files events:{events} make sure to give me a short response for each event."
+        }
+    ])
+    print(completion.choices[0].message)
 
 
 if __name__ == "__main__":
