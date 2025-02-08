@@ -1,43 +1,11 @@
 from datetime import datetime
 from playwright.sync_api import sync_playwright
+from openai import OpenAI
 import random
 import json
 import os
-# TODO MAKE SURE WE TARGET ALL DATA NOT JUST LAST PIECES
-# /////////////------THIS ALLOWS US TO GET BY THE CURRENT ITS ONLY HALF FINISH ---------//////
-# def scrape_by_month():
-#     with sync_playwright() as playwright:
-#         # Launch a browser (headless by default)
-#         browser = playwright.chromium.launch(headless=True)
-#         # Open a new browser context and page
-#         context = browser.new_context()
-#         page = context.new_page()
-#         # TODO; WILLH HAVE TO UPDATE THIS AFTER DECEMBER ENDS
-#         current_year = datetime.now().year + 1
-#         current_month = ' January'
-#         # Navigate to the website
-#         page.goto("https://www.gamesindustry.biz/events?year=2025")
-#         # have to target month class and get all children buy 
-#         article_parent_element = page.locator('div.months')
-#         article_month_header = article_parent_element.locator('div.month :first-child')
-#         print(article_month_header.text_content())
-        
-#         # check if the current year matches and month
-#         # if current year adn month matches then we continue
-#         # if str(current_year + ) in article_header:
-#         #     print("Year Matches")
-#         #     # get access to element by class and then get children
-#         #     eventsParentElement = page.locator('')
-#         #     return 
-#         # return print("Did not match")
-#         # Extract and print the page title
-#         # title = page.title()
 
-#         # print(f"Page title: {title}")
-
-#         # Close the browser
-#         browser.close()
-# /////////////------THIS ALLOWS US TO GET BY THE CURRENT ITS ONLY HALF FINISH ---------//////
+# SCRAPES ALL DATA FROM GAME INDUSTRY EVENTS
 def scrape_months():
     with sync_playwright() as playwright:
         random_images = [
@@ -143,12 +111,27 @@ def scrape_months():
             event_glossory.append(event_dictonary.copy())
         browser.close()
         return event_glossory
+# FUNCTION TO CREATE JSON FILES
 def create_json(data, filename): 
      os.makedirs('dist', exist_ok=True)
      file_path = os.path.join('dist', f"{filename}.json")
      with open(file_path, 'w') as json_file:
         json.dump(data, json_file, indent=4)
         print("File was created")
+# TODO make sure i can pass mulitple values later that way I only use one OpenAI token instead of running multiple times;
+def give_summary():
+    # TODO: must feed API key to access AI
+    client = OpenAI()
+    completion = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {
+            "role": "user",
+            "content": "Write a haiku about recursion in programming."
+        }
+    ])
+    print(completion.choices[0].message)
 
 
 if __name__ == "__main__":
